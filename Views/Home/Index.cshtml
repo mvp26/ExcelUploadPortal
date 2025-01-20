@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Upload Excel Files";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Upload Excel Files</h2>
+
+    <!-- Display Error or Success messages -->
+    @if (TempData["Error"] != null)
+    {
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Html.Raw(TempData["Success"])
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    }
+
+    <!-- Upload file -->
+    <form asp-action="UploadExcel" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="files">Select Excel Files</label>
+            <input type="file" name="files" class="form-control" id="filesInput" multiple />
+            <small class="form-text text-muted">You can select multiple files for upload.</small>
+
+            <!-- Display the list of selected files or mutiple files -->
+            <ul id="fileList" class="mt-2"></ul>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Upload</button>
+    </form>
+
+    <hr class="my-4">
+</div>
+
+<!-- Custom CSS for styling -->
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 600px;
+    }
+
+    h2 {
+        color: #007bff;
+    }
+
+    .alert-dismissible .close {
+        margin-top: -10px;
+    }
+
+    .form-group label {
+        font-size: 1.1rem;
+    }
+
+    .btn-block {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 1.2rem;
+    }
+
+        .btn-block:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    hr {
+        border-color: #dcdcdc;
+    }
+
+    #fileList {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        #fileList li {
+            padding: 5px;
+            background-color: #f1f1f1;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+</style>
+
+
+<!-- JavaScript for displaying selected files -->
+<script>
+    document.getElementById('filesInput').addEventListener('change', function (e) {
+        var fileList = document.getElementById('fileList');
+        fileList.innerHTML = ''; // Clear any previously listed files
+
+        for (var i = 0; i < e.target.files.length; i++) {
+            var listItem = document.createElement('li');
+            listItem.textContent = e.target.files[i].name;
+            fileList.appendChild(listItem);
+        }
+    });
+</script>

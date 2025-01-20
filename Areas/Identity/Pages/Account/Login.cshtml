@@ -1,0 +1,165 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<style>
+    /* Full-page gradient background */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        background: linear-gradient(-45deg, #2193b0, #6dd5ed, #8e44ad, #f1c40f);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Gradient animation */
+    @@keyframes gradientShift {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Centered login card with enlarged dimensions */
+    .card {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 25px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+    }
+
+    .card-body {
+        padding: 40px;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    /* Enhanced button styles */
+    .btn-primary {
+        background: linear-gradient(45deg, #6dd5ed, #2193b0);
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #2193b0, #6dd5ed);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+    /* Link styles */
+    a.text-primary {
+        color: #8e44ad;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        a.text-primary:hover {
+            color: #6dd5ed;
+            text-decoration: underline;
+        }
+
+    /* Form input focus effect */
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #2193b0;
+            box-shadow: 0 0 10px rgba(33, 147, 176, 0.5);
+        }
+
+    .form-floating label {
+        color: #555;
+        transition: all 0.3s ease;
+    }
+
+    .form-floating input:focus + label {
+        color: #2193b0;
+    }
+
+    /* Responsive design for smaller screens */
+    @@media (max-width: 768px) {
+        .card {
+            margin: 20px;
+        }
+    }
+</style>
+
+<div class="container d-flex align-items-center justify-content-center">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center text-primary mb-4">Log in</h2>
+            <form id="account" method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="form-floating mb-4">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input asp-for="Input.Password" class="form-control" type="password" autocomplete="current-password" placeholder="Password" />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" asp-for="Input.RememberMe" id="rememberMe" />
+                    <label class="form-check-label" for="rememberMe">Remember Me</label>
+                </div>
+
+                <button id="login-submit" type="submit" class="btn btn-primary w-100 py-3">Log in</button>
+
+                <div class="text-center mt-3">
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="text-decoration-none">Forgot your password?</a>
+                </div>
+
+                <hr />
+
+                <div class="text-center">
+                    <p class="mb-1">
+                        Don’t have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none text-primary">Register</a>
+                    </p>
+                    <p>
+                        Didn’t receive a confirmation email? <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-decoration-none text-primary">Resend it</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
