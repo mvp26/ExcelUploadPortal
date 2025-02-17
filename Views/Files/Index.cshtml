@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Upload Excel Files";
+}
+
+<h2>Upload Excel Files</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @Html.Raw(TempData["Success"])
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form asp-action="UploadExcel" asp-controller="Files" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="files">Select Excel Files</label>
+        <input type="file" name="files" id="fileInput" multiple class="form-control" required onchange="displaySelectedFiles()" />
+    </div>
+    <ul id="fileList" class="list-group mt-2"></ul>
+    <button type="submit" class="btn btn-primary mt-2">Upload</button>
+</form>
+
+<script>
+    function displaySelectedFiles() {
+        var input = document.getElementById('fileInput');
+        var fileList = document.getElementById('fileList');
+        fileList.innerHTML = ''; // Clear previous list
+
+        if (input.files.length > 0) {
+            for (var i = 0; i < input.files.length; i++) {
+                var li = document.createElement('li');
+                li.className = 'list-group-item';
+                li.textContent = input.files[i].name;
+                fileList.appendChild(li);
+            }
+        }
+    }
+</script>

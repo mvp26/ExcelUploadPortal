@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Preview File";
+}
+
+<h2>Preview File</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Salutation</th>
+            <th>Card Number</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.Salutation</td>
+                <td>@customer.CardNumber</td>
+                <td>@customer.Email</td>
+                <td>@customer.MobileNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="UploadedFiles" asp-controller="FileUpload" class="btn btn-secondary">Back to Files</a>

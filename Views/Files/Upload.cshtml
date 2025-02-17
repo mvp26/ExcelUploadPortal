@@ -1,0 +1,20 @@
+﻿<!-- UploadResult.cshtml -->
+@{
+    ViewData["Title"] = "Upload Results";
+}
+
+<h2>Upload Results</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @Html.Raw(TempData["Success"])
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}

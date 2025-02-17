@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Reports";
+}
+
+<h2>Generate Customer Report</h2>
+
+<form method="get" action="@Url.Action("ExportToExcel", "Reports")">
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Download Excel Report</button>
+</form>
